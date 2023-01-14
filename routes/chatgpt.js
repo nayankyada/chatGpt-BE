@@ -24,6 +24,7 @@ router.get("/", (req, res) => {
         });
       })
       .catch((e) => {
+        console.log(e)
         return res.send({
           statusMessage: "Something went wrong",
           statusCode: 400,
