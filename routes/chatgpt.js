@@ -6,33 +6,6 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-router.get("/", (req, res) => {
-  if (req.query.text) {
-    openai
-      .createCompletion({
-        model: "text-davinci-003",
-        prompt: req.query.text,
-        temperature: 0.7,
-        stop: "none",
-        max_tokens: 2048,
-      })
-      .then((d) => {
-        return res.send({
-          statusMessage: "success",
-          response : JSON.stringify(d.data.choices[0].text),
-          statusCode: 200,
-        });
-      })
-      .catch((e) => {
-        console.log(e)
-        return res.send({
-          statusMessage: "Something went wrong",
-          statusCode: 400,
-        });
-      });
-  }
-});
-
 router.post("/", (req, res) => {
   if (req.body.text) {
     openai
@@ -46,7 +19,7 @@ router.post("/", (req, res) => {
       .then((d) => {
         return res.send({
           statusMessage: "success",
-          response : JSON.stringify(d.data.choices[0].text),
+          response: JSON.stringify(d.data.choices[0].text),
           statusCode: 200,
         });
       })
