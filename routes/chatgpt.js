@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
         prompt: req.query.text,
         temperature: 0.7,
         stop: "none",
-        max_tokens: 4000,
+        max_tokens: 2048,
       })
       .then((d) => {
         return res.send({
@@ -33,4 +33,29 @@ router.get("/", (req, res) => {
   }
 });
 
+router.post("/", (req, res) => {
+  if (req.body.text) {
+    openai
+      .createCompletion({
+        model: "text-davinci-003",
+        prompt: req.body.text,
+        temperature: 0.7,
+        stop: "none",
+        max_tokens: 2048,
+      })
+      .then((d) => {
+        return res.send({
+          statusMessage: "success",
+          response : JSON.stringify(d.data.choices[0].text),
+          statusCode: 200,
+        });
+      })
+      .catch((e) => {
+        return res.send({
+          statusMessage: "Something went wrong",
+          statusCode: 400,
+        });
+      });
+  }
+});
 module.exports = router;
