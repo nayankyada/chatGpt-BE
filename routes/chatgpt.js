@@ -30,6 +30,10 @@ router.get("/", (req, res) => {
         });
       });
   }
+  return res.send({
+    statusMessage: "Something went wrong",
+    statusCode: 400,
+  });
 });
 
 module.exports = router;
